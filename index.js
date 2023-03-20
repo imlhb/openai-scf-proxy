@@ -1,13 +1,13 @@
 const express = require("express");
 const app = express();
-const product = require("./api/product");
+// const product = require("./api/product");
 const {
     createProxyMiddleware
 } = require('http-proxy-middleware');
 
-app.use(express.json({ extended: false }));
+// app.use(express.json({ extended: false }));
 
-app.use("/api/product", product);
+// app.use("/api/product", product);
 
 app.use('/', createProxyMiddleware({
     target: 'https://api.openai.com',
