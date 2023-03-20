@@ -6,7 +6,7 @@ const app = express()
 const port = process.env.PORT || 3000;
 
 console.log(port)
-app.use('/', createProxyMiddleware({
+app.use('/test', createProxyMiddleware({
   target: 'https://api.openai.com',
   changeOrigin: true,
   onProxyRes: function (proxyRes, req, res) {
