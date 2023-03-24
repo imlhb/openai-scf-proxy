@@ -16,6 +16,5 @@ app.use('/', createProxyMiddleware({
         proxyRes.headers['Access-Control-Allow-Origin'] = '*';
     }
 }));
-
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => console.log(`Server is running in port ${PORT}`));
