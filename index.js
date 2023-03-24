@@ -12,13 +12,13 @@ const {
 app.use('/', createProxyMiddleware({
     target: 'https://api.openai.com',
     changeOrigin: true,
-    buffer: false, // 禁用缓冲区
-    autoRewrite: true, // 自动重写 Location 和 Content-Location 字段
-    headers: { Connection: 'keep-alive' }, // 保持长连接
-    onProxyRes: function (proxyRes, req, res) {
+    buffer: false,
+    autoRewrite: true,
+    headers: { Connection: 'keep-alive' },
+    onProxyRes: function(proxyRes, req, res) {
         proxyRes.headers['Access-Control-Allow-Origin'] = '*';
-
-        // 使用流式传输
+        proxyRes.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE, OPTIONS';
+        proxyRes.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization';
         proxyRes.pipe(res);
     }
 }));
