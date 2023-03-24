@@ -12,14 +12,14 @@ const {
 app.use('/', createProxyMiddleware({
     target: 'https://api.openai.com',
     changeOrigin: true,
-    buffer: false,
+    // buffer: false,
     autoRewrite: true,
-    headers: { Connection: 'keep-alive' },
+    // headers: { Connection: 'keep-alive' },
     onProxyRes: function(proxyRes, req, res) {
         proxyRes.headers['Access-Control-Allow-Origin'] = '*';
-        proxyRes.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE, OPTIONS';
-        proxyRes.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization';
-        proxyRes.pipe(res);
+        // proxyRes.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE, OPTIONS';
+        // proxyRes.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization';
+        // proxyRes.pipe(res);
     }
 }));
 const PORT = process.env.PORT || 8080;
