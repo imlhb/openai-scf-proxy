@@ -1,26 +1,18 @@
-const express = require("express");
-const app = express();
-// const product = require("./api/product");
-const {
-    createProxyMiddleware
-} = require('http-proxy-middleware');
+import { serve } from "https://deno.land/std@0.177.0/http/server.ts";
 
-// app.use(express.json({ extended: false }));
+const OPENAI_API_HOST = "api.openai.com";
 
-// app.use("/api/product", product);
+serve(async (request) => {
+    const url = new URL(request.url);
 
-app.use('/', createProxyMiddleware({
-    target: 'https://api.openai.com',
-    changeOrigin: true,
-    // buffer: false,
-    autoRewrite: true,
-    // headers: { Connection: 'keep-alive' },
-    onProxyRes: function(proxyRes, req, res) {
-        proxyRes.headers['Access-Control-Allow-Origin'] = '*';
-        // proxyRes.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE, OPTIONS';
-        // proxyRes.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization';
-        // proxyRes.pipe(res);
+    if (url.pathname === "/") {
+        return new Response(await Deno.readTextFile("./Readme.md"), {
+            headers: {
+                "content-type": "text/plain;charset=UTF-8",
+            },
+        });
     }
-}));
-const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => console.log(`Server is running in port ${PORT}`));
+
+    url.host = OPENAI_API_HOST;
+    return await fetch(url, request);
+});
